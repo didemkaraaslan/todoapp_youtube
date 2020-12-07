@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TodoList from './components/TodoList';
 import { useTodoLayerValue } from './context/TodoContext';
 import './App.css';
@@ -6,6 +6,12 @@ import './App.css';
 const App = () => {
   const [{ todos }, dispatch] = useTodoLayerValue();
   const [content, setContent] = useState('');
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,6 +40,7 @@ const App = () => {
           value={content}
           className="todo-input"
           placeholder="Ne yapacaksın bakalım?"
+          ref={inputRef}
           onChange={(event) => setContent(event.target.value)}
         />
 

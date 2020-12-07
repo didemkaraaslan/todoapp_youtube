@@ -15,6 +15,20 @@ const reducer = (state, action) => {
         ...state,
         todos: [...state.todos].filter((todo) => todo.id !== action.payload),
       };
+    case 'UPDATE_TODO':
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id !== action.payload.todoId) {
+            return todo;
+          }
+
+          return {
+            ...todo,
+            content: action.payload.newValue,
+          };
+        }),
+      };
     case 'COMPLETE_TODO':
       return {
         ...state,
